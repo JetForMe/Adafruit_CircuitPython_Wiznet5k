@@ -16,7 +16,7 @@ Pure-Python implementation of Jordan Terrell's DHCP library v0.3
 import gc
 import time
 from random import randint
-from micropython import const
+from micropython import const										# type: ignore
 import adafruit_wiznet5k.adafruit_wiznet5k_socket as socket
 from adafruit_wiznet5k.adafruit_wiznet5k_socket import htonl, htons
 

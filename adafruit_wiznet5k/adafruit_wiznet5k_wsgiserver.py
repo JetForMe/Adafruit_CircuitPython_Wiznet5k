@@ -30,7 +30,7 @@ https://www.python.org/dev/peps/pep-0333/
 
 import io
 import gc
-from micropython import const
+from micropython import const									# type: ignore
 import adafruit_wiznet5k as wiznet5k
 import adafruit_wiznet5k.adafruit_wiznet5k_socket as socket
 

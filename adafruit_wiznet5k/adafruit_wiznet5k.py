@@ -28,10 +28,11 @@ Implementation Notes
 * Adafruit's Bus Device library: https://github.com/adafruit/Adafruit_CircuitPython_BusDevice
 """
 from random import randint
-import time
-from micropython import const
+import time	
+from micropython import const							# type: ignore
 
-from adafruit_bus_device.spi_device import SPIDevice
+import busio											# type: ignore
+from adafruit_bus_device.spi_device import SPIDevice	# type: ignore
 import adafruit_wiznet5k.adafruit_wiznet5k_dhcp as dhcp
 import adafruit_wiznet5k.adafruit_wiznet5k_dns as dns
 
@@ -149,7 +150,7 @@ class WIZNET5K:  # pylint: disable=too-many-public-methods
     # pylint: disable=too-many-arguments
     def __init__(
         self,
-        spi_bus,
+        spi_bus: busio.SPI,
         cs,
         reset=None,
         is_dhcp=True,

@@ -15,7 +15,7 @@ ethernet modules.
 """
 import time
 from random import getrandbits
-from micropython import const
+from micropython import const									# type: ignore
 import adafruit_wiznet5k.adafruit_wiznet5k_socket as socket
 from adafruit_wiznet5k.adafruit_wiznet5k_socket import htons
 
