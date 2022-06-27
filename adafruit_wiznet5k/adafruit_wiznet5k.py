@@ -236,7 +236,7 @@ class WIZNET5K:  # pylint: disable=too-many-public-methods
         if self._dhcp_client is not None:
             self._dhcp_client.maintain_dhcp_lease()
 
-    def get_host_by_name(self, hostname):
+    def get_host_by_name(self, hostname: str) -> bytearray:
         """Convert a hostname to a packed 4-byte IP Address.
         Returns a 4 bytearray.
         """

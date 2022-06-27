@@ -16,17 +16,19 @@ import gc
 import time
 from micropython import const			# type: ignore
 import adafruit_wiznet5k as wiznet5k
+from .adafruit_wiznet5k import WIZNET5K
 try:
-    from typing import Any, List, Optional, Tuple, Type
+    from typing import Any, List, Optional, Tuple, Type, Union
 except ImportError:
     pass
 
-Address = tuple[Optional[str], Optional[int]]
+LocalAddress = tuple[Optional[str], Optional[int]]
+RemoteAddress = tuple[str, Optional[int]]
 
-_the_interface: wiznet5k.WIZNET5K = None  # pylint: disable=invalid-name
+_the_interface: Any = None  # pylint: disable=invalid-name
 
 
-def set_interface(iface: wiznet5k.WIZNET5K) -> None:
+def set_interface(iface: WIZNET5K) -> None:
     """Helper to set the global internet interface."""
     global _the_interface  # pylint: disable=global-statement, invalid-name
     _the_interface = iface
@@ -178,7 +180,7 @@ class socket:
 #         self._buffer = bytearray(self._buffer)
         return self._buffer
 
-    def bind(self, address: Address) -> None:
+    def bind(self, address: LocalAddress) -> None:
         """Bind the socket to the listen port, if host is specified the interface
         will be reconfigured to that IP.
 
@@ -236,7 +238,7 @@ class socket:
             raise RuntimeError("Failed to open new listening socket")
         return client_sock, addr
 
-    def connect(self, address: Address, conntype: Optional[int]=None) -> None:
+    def connect(self, address: RemoteAddress, conntype: Optional[int]=None) -> None:
         """Connect to a remote socket at address.
 
         :param tuple address: Remote socket as a (host, port) tuple.
@@ -271,7 +273,7 @@ class socket:
         gc.collect()
         return ret
 
-    def sendto(self, data: bytes, address: Address) -> int:
+    def sendto(self, data: bytes, address: RemoteAddress) -> int:
         """Send data to the socket. The socket must be connected to
         a remote socket.
 
